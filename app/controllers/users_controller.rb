@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
     # Need a 'show' route to view individual users
+    get '/users/:id' do
+        @user = User.find_by_slug(params[:slug])
+        erb :'users/show'
+    end
 
     get '/signup' do
         erb :'users/signup'
@@ -20,14 +24,14 @@ class UsersController < ApplicationController
         @user = User.find_by(email: params[:email])
         if @user && @user.authenticate(params[:password])
             session[:user_id] = @user.id
-            redirect '/'
+            redirect '/users/:id'
         else
             redirect 'signup'
         end
     end
 
     get 'logout' do
-
+        session.destroy
     end
 
 end
