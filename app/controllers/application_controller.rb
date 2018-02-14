@@ -1,8 +1,14 @@
-class ApplicationController < Sinatra::Base
-    register Sinatra::ActiveRecordExtension
+require './config/environment'
 
-    get '/' do
-        erb :index
-    end
-    
+class ApplicationController < Sinatra::Base
+
+  configure do
+    set :public_folder, 'public'
+    set :views, 'app/views'
+  end
+
+  get '/' do
+    erb :index
+  end
+
 end
