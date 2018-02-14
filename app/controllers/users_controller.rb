@@ -11,9 +11,12 @@ class UsersController < ApplicationController
 
     post '/signup' do
         @user = User.new(username: params[:username], email: params[:email], password: params[:password])
-        @user.save
-        session[:user_id] = @user.id
-        redirect '/'
+        if @user.save
+            session[:user_id] = @user.id
+            redirect '/'
+        else
+            redirect 'signup'
+        
     end
 
     get '/login' do
